@@ -30,4 +30,19 @@ def is_allocation_feasible(
 
     """
     # TODO: Implement this function
-    raise NotImplementedError("suggest_slots function has not been implemented yet")
+    total: Dict[str, Number] = {}
+
+    for request in requests:
+        for resource, amount in request.items():
+            if amount < 0:
+                return False
+            
+            total[resource] = total.get(resource, 0) + amount
+
+            if resource not in resources:
+                return False
+            if total[resource] > resources[resource]:
+                return False
+            
+    return True
+    # raise NotImplementedError("suggest_slots function has not been implemented yet")
