@@ -198,6 +198,86 @@ Here are **six key constraints and assumptions** that are relevant to the resour
 
 If you want, I can also help translate these into **code-level invariants**, **validation rules**, or **documentation comments**.
 
+P:
+This is the starter code I was given:
+
+rom typing import Dict, List, Union
+
+Number = Union[int, float]
+
+
+def is_allocation_feasible(
+    resources: Dict[str, Number],
+    requests: List[Dict[str, Number]]
+) -> bool:
+    """
+    Determine whether a set of resource requests can be satisfied given limited capacities.
+
+    Args:
+        resources : Dict[str, Number], Mapping from resource name to total available capacity.
+        requests : List[Dict[str, Number]], List of requests. Each request is a mapping from resource name to the amount required.
+
+    Returns:
+        True if the allocation is feasible, False otherwise.
+
+    """
+    # TODO: Implement this function
+    raise NotImplementedError("suggest_slots function has not been implemented yet")
+
+Using the context given, can you suggest one possible implementation?
+
+A:
+Yep! Given the context and the starter code, here’s a **clean, reasonable implementation** that checks feasibility by ensuring total requested amounts do not exceed available resources for each resource type.
+
+```python
+from typing import Dict, List, Union
+
+Number = Union[int, float]
+
+
+def is_allocation_feasible(
+    resources: Dict[str, Number],
+    requests: List[Dict[str, Number]]
+) -> bool:
+    """
+    Determine whether a set of resource requests can be satisfied given limited capacities.
+    """
+    # Track total usage per resource
+    total_requested: Dict[str, Number] = {}
+
+    for request in requests:
+        for resource, amount in request.items():
+            # Invalid request: negative usage
+            if amount < 0:
+                return False
+
+            total_requested[resource] = total_requested.get(resource, 0) + amount
+
+            # Resource not available or exceeded capacity
+            if resource not in resources:
+                return False
+            if total_requested[resource] > resources[resource]:
+                return False
+
+    return True
+```
+
+### Why this works
+
+* Aggregates usage per resource across all requests
+* Fails fast if:
+
+  * A request asks for an unknown resource
+  * A request is negative
+  * Capacity is exceeded at any point
+* Returns `True` only if *all* constraints are satisfied
+
+If you want, I can also:
+
+* Add input validation (types, empty checks)
+* Optimize for large inputs
+* Write unit tests for this implementation
+
 
 
 
