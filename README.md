@@ -1,6 +1,6 @@
 ## TODO:
-## Student Name:
-## Student ID: 
+## Student Name: Rocco Fernando Gadista
+## Student ID: 219714732
 
 # Is Resource Allocation Feasible Lab Repository
 
