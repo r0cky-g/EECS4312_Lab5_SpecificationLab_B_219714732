@@ -158,6 +158,45 @@ Sure! Here are **six acceptance criteria** written in **Given–When–Then** fo
 
 If you’d like, I can also help convert these into **unit tests** or tailor them to a **specific data structure** you have in mind.
 
+P:
+Suggest 6 constraints and assumptions relevant to the problem.
+
+A:
+Here are **six key constraints and assumptions** that are relevant to the resource allocation feasibility problem:
+
+---
+
+1. **Resources are finite and fixed**
+   The total available resources are limited and do not change during the execution of the allocation check.
+
+---
+
+2. **Requests are non-negative and well-formed**
+   Each resource request specifies a valid, non-negative amount and follows the expected input format.
+
+---
+
+3. **Requests must be fully satisfied or not at all**
+   Partial fulfillment of a request is not allowed; each request either receives its full required resources or the allocation is deemed infeasible.
+
+---
+
+4. **Resource types must align between requests and capacity**
+   All resource types requested must exist in the available resources definition, and no unknown or unsupported resource types are allowed.
+
+---
+
+5. **Order of requests does not affect feasibility**
+   The feasibility result depends only on total demand versus total capacity, not on the order in which requests are processed.
+
+---
+
+6. **No side effects or state changes**
+   The function performs a pure feasibility check and does not mutate the input data or perform actual allocation.
+
+---
+
+If you want, I can also help translate these into **code-level invariants**, **validation rules**, or **documentation comments**.
 
 
 
