@@ -12,3 +12,86 @@ The objective of the system is to **determine whether a feasible allocation exis
 
 In simpler terms:
 👉 Given what’s available and what’s being requested, the system’s goal is to decide **“Is it possible to allocate resources so everyone’s needs are met?”**
+
+P:
+Describe each input parameter. What type and format does each take? What values are valid?
+
+A:
+Based on the given context, the function has **two input parameters**. Since the exact signature isn’t specified, we describe them in a general, reasonable, and commonly accepted way.
+
+---
+
+### 1. `requests`
+
+**Purpose:**
+Represents the resource demands that must be satisfied.
+
+**Type:**
+
+* Typically a **list** (or other iterable)
+
+**Format (common interpretations):**
+
+* A list of integers, where each integer is the amount of resource requested
+
+  ```python
+  requests = [2, 5, 3]
+  ```
+* Or a list of structured items (e.g., tuples or dicts) if multiple resource types are involved
+
+  ```python
+  requests = [{"cpu": 2, "memory": 4}, {"cpu": 1, "memory": 2}]
+  ```
+
+**Valid values:**
+
+* Non-negative numbers (usually integers)
+* Each request must be well-defined and finite
+* Requests should not be negative or malformed
+
+---
+
+### 2. `available_resources` (or `capacity`)
+
+**Purpose:**
+Represents the total amount of resources that can be allocated.
+
+**Type:**
+
+* Typically an **integer**, **list**, or **dictionary**, depending on the problem scope
+
+**Format (common interpretations):**
+
+* A single integer for total capacity
+
+  ```python
+  available_resources = 10
+  ```
+* A list of capacities corresponding to resource types
+
+  ```python
+  available_resources = [5, 10]
+  ```
+* A dictionary mapping resource types to capacities
+
+  ```python
+  available_resources = {"cpu": 4, "memory": 8}
+  ```
+
+**Valid values:**
+
+* Non-negative numbers (usually integers)
+* Must represent finite, fixed capacities
+* Capacity values must be consistent with the structure used in `requests`
+
+---
+
+### Summary
+
+* **`requests`**: what is needed
+* **`available_resources`**: what is available
+* Both must use compatible formats and contain valid, non-negative values for the allocation feasibility check to work correctly.
+
+If you want, I can also help you **formalize a concrete function signature** or **define strict validation rules**.
+
+
