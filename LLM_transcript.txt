@@ -1,0 +1,14 @@
+P = Prompt, A = AI Answer
+
+P: 
+Context:
+
+You are asked to implement a Python function that determines whether a set of resource requests can be satisfied given limited capacity. The function takes as input a list of requests and available resources and returns whether a valid allocation exists. The goal is to determine feasibility of allocation based on the provided information. You may assume inputs are provided in a reasonable and consistent format. You may use ChatGPT to assist with reasoning about the problem, generating code, or writing tests.
+
+Question: What is the objective of the system?
+
+A:
+The objective of the system is to **determine whether a feasible allocation exists**—that is, to check if the available resources can satisfy all the given resource requests **without exceeding capacity constraints**.
+
+In simpler terms:
+👉 Given what’s available and what’s being requested, the system’s goal is to decide **“Is it possible to allocate resources so everyone’s needs are met?”**
