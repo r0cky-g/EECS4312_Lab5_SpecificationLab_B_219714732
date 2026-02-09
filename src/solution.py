@@ -37,6 +37,12 @@ def is_allocation_feasible(
             raise ValueError("Malformed Request")
     
         for resource, amount in request.items():
+            if not isinstance(resource, dict):
+                raise ValueError("Malformed resource")
+
+            if not isinstance(amount, int):
+                raise ValueError("Invalid value")
+
             if amount < 0:
                 return False
             
