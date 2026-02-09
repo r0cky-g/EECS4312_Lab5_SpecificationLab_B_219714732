@@ -46,11 +46,28 @@ def test_non_dict_request_raises():
         is_allocation_feasible(resources, requests)
 
 """TODO: Add at least 5 additional test cases to test your implementation."""
-def test_non_dict_request_raises():
+def test_non_str_resource_raises():
     # Non-Dict Request Raises Error
     # Constraint: structural validation
     # Reason: resource name must be string
     resources = {'cpu': 5}
-    requests = [{8 : 2}, ['mem', 1]]  # malformed request
+    requests = [{8 : 2}, {'mem', 1}]  # Malformed Resource
     with pytest.raises(ValueError):
         is_allocation_feasible(resources, requests)
+
+def test_non_int_value_raises():
+    # Non-Dict Request Raises Error
+    # Constraint: structural validation
+    # Reason: resource name must be string
+    resources = {'cpu': 5}
+    requests = [{8 : 'cpu'}, {'mem', 1}]  # Malformed Resource Value
+    with pytest.raises(ValueError):
+        is_allocation_feasible(resources, requests)
+
+def test_negative_value_resource():
+    # Basic Feasible Single-Resource
+    # Constraint: Valid value
+    # Reason: Value of resource must be non-negative
+    resources = {'cpu': 10}
+    requests = [{'cpu': -3}, {'cpu': 4}, {'cpu': 3}]
+    assert is_allocation_feasible(resources, requests) is False
