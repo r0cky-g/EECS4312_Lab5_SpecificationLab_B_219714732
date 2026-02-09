@@ -46,3 +46,11 @@ def test_non_dict_request_raises():
         is_allocation_feasible(resources, requests)
 
 """TODO: Add at least 5 additional test cases to test your implementation."""
+def test_non_dict_request_raises():
+    # Non-Dict Request Raises Error
+    # Constraint: structural validation
+    # Reason: resource name must be string
+    resources = {'cpu': 5}
+    requests = [{8 : 2}, ['mem', 1]]  # malformed request
+    with pytest.raises(ValueError):
+        is_allocation_feasible(resources, requests)

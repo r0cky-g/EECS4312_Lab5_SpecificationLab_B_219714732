@@ -37,21 +37,24 @@ def is_allocation_feasible(
             raise ValueError("Malformed Request")
     
         for resource, amount in request.items():
-            if not isinstance(resource, dict):
+            if not isinstance(resource, str):
                 raise ValueError("Malformed resource")
 
             if not isinstance(amount, int):
                 raise ValueError("Invalid value")
 
+            if resource not in resources:
+                return False
+
             if amount < 0:
                 return False
             
+            allocationValid = total.get(resource, 0) + amount
+
+            if allocationValid > resources[resource]:
+                return False
+
             total[resource] = total.get(resource, 0) + amount
 
-            if resource not in resources:
-                return False
-            if total[resource] > resources[resource]:
-                return False
-            
     return True
     # raise NotImplementedError("suggest_slots function has not been implemented yet")
