@@ -71,3 +71,21 @@ def test_negative_value_resource():
     resources = {'cpu': 10}
     requests = [{'cpu': -3}, {'cpu': 4}, {'cpu': 3}]
     assert is_allocation_feasible(resources, requests) is False
+
+def test_non_dict_available_resource_raises():
+    # Non-Dict Resource Raises Error
+    # Constraint: structural validation
+    # Reason: To ensure available resources is well formed.
+    resources = ['cpu', 5]
+    requests = [{'cpu': 2}, {'mem', 1}]  # Malformed Resource
+    with pytest.raises(ValueError):
+        is_allocation_feasible(resources, requests)
+
+def test_non_str_available_resource_raises():
+    # Non-Dict Resource Raises Error
+    # Constraint: structural validation
+    # Reason: resource name must be string
+    resources = {2.2: 5}
+    requests = [{'cpu': 2}, {'mem', 1}]  # Malformed Resource
+    with pytest.raises(ValueError):
+        is_allocation_feasible(resources, requests)
