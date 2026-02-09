@@ -30,6 +30,17 @@ def is_allocation_feasible(
 
     """
     # TODO: Implement this function
+    if not isinstance(resource, dict):
+        raise ValueError("Malformed ressources")
+    
+    for resource in resources:
+        if not isinstance(resource, str):
+            raise ValueError("Malformed resource")
+
+        if not isinstance(amount, int):
+            raise ValueError("Invalid value")
+
+
     total: Dict[str, Number] = {}
 
     for request in requests:

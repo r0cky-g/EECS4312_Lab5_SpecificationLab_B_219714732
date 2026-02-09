@@ -47,7 +47,7 @@ def test_non_dict_request_raises():
 
 """TODO: Add at least 5 additional test cases to test your implementation."""
 def test_non_str_resource_raises():
-    # Non-Dict Request Raises Error
+    # Non-Dict Resource Raises Error
     # Constraint: structural validation
     # Reason: resource name must be string
     resources = {'cpu': 5}
@@ -56,9 +56,9 @@ def test_non_str_resource_raises():
         is_allocation_feasible(resources, requests)
 
 def test_non_int_value_raises():
-    # Non-Dict Request Raises Error
+    # Non-Int Resource Value Raises Error
     # Constraint: structural validation
-    # Reason: resource name must be string
+    # Reason: resource value must be int
     resources = {'cpu': 5}
     requests = [{8 : 'cpu'}, {'mem', 1}]  # Malformed Resource Value
     with pytest.raises(ValueError):
