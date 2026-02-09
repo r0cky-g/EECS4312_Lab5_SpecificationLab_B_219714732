@@ -199,3 +199,30 @@ If you want, I can also:
 * Add input validation (types, empty checks)
 * Optimize for large inputs
 * Write unit tests for this implementation
+
+--------------------------------------------------
+Prompt 5:
+
+Clarify: At least one resource must remain unallocated after assignment.
+
+LLM Response 5:
+
+It means this:
+
+After you finish assigning resources (people, machines, budget units, etc.) to tasks, **you are not allowed to use all of them**.
+There must be **at least one resource left unused**.
+
+In more concrete terms:
+
+* If you have **N resources total**, you may assign **at most N − 1** of them.
+* A solution that uses **every single resource** is **invalid**.
+* A solution that leaves **one or more resources idle** is valid.
+
+Example:
+
+* You have 5 servers and tasks that could use all 5.
+
+  * Assigning 4 servers → ✅ valid
+  * Assigning all 5 servers → ❌ not allowed
+
+If you want, tell me the context (math problem, optimization model, scheduling rules, etc.), and I can restate it in the exact formal language you need.
