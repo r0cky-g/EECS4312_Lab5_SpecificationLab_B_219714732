@@ -89,3 +89,5 @@ def test_non_str_available_resource_raises():
     requests = [{'cpu': 2}, {'mem', 1}]  # Malformed Resource
     with pytest.raises(ValueError):
         is_allocation_feasible(resources, requests)
+
+# Would've of created a test that would test the invariant of having one resource unallocated.

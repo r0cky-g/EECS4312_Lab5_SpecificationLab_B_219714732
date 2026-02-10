@@ -30,6 +30,10 @@ def is_allocation_feasible(
 
     """
     # TODO: Implement this function
+    amountOfAllocations = 0
+
+    # Wanted to implement an invariant that choose a dedicated resource to unallocate when it breaks the constraint.
+    
     if not isinstance(resource, dict):
         raise ValueError("Malformed ressources")
     
@@ -61,11 +65,16 @@ def is_allocation_feasible(
                 return False
             
             allocationValid = total.get(resource, 0) + amount
-
+            
             if allocationValid > resources[resource]:
                 return False
+            
+            if resource not in total:
+                amountOfAllocations += 1
 
             total[resource] = total.get(resource, 0) + amount
+
+           
 
     return True
     # raise NotImplementedError("suggest_slots function has not been implemented yet")

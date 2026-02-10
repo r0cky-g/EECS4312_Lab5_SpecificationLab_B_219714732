@@ -348,3 +348,191 @@ If you want, tell me:
 * whether this is hard real-time or best-effort
 
 I can help you design the *exact* policy and logic.
+
+---------------------------------------------------
+
+Prompt 7:
+
+How should we choose which resource to unallocate?
+
+LLM Response 7:
+
+Great, this is the *real* design question 🙂
+Once you’ve decided “we must keep at least one resource unallocated,” the next question is **which one do we protect or free**. There’s no single correct answer — it’s a **policy decision**, and the right policy depends on what you’re optimizing for.
+
+I’ll walk you through the common strategies, when they make sense, and the trade-offs.
+
+---
+
+## First: clarify the invariant
+
+You’re enforcing:
+
+> **At all times, at least one resource must be unallocated**
+
+So when pressure is high, you must either:
+
+* **protect** one resource from allocation, or
+* **unallocate** one that’s already in use
+
+The choice of *which* resource is your policy.
+
+---
+
+## Common policies for choosing the unallocated resource
+
+### 1. Dedicated reserve (simplest & safest)
+
+**One specific resource is always reserved.**
+
+* Pick a resource at system start
+* Never allocate it unless explicitly overridden
+
+**Best for:**
+
+* emergency capacity
+* fault tolerance
+* simple systems
+
+**Trade-off:**
+You permanently reduce usable capacity by 1.
+
+> This is usually the right answer unless you *need* flexibility.
+
+---
+
+### 2. Least recently used (LRU)
+
+Unallocate the resource that was used least recently.
+
+**Best for:**
+
+* caches
+* pooled connections
+* bursty workloads
+
+**Why it works:**
+Recent usage predicts near-future usage.
+
+**Trade-off:**
+Needs usage tracking.
+
+---
+
+### 3. Lowest priority / importance
+
+Each allocation has a priority level.
+
+* Unallocate the lowest-priority resource
+* Higher-priority allocations are protected
+
+**Best for:**
+
+* schedulers
+* real-time or QoS systems
+* multi-tenant environments
+
+**Trade-off:**
+You must define and enforce priorities correctly.
+
+---
+
+### 4. Cheapest to recover / reallocate
+
+Unallocate the resource with the **lowest reallocation cost**.
+
+Examples:
+
+* shortest setup time
+* least state to rebuild
+* smallest memory footprint
+
+**Best for:**
+
+* cloud resources
+* expensive initialization systems
+
+**Trade-off:**
+Cost metrics can be complex or fuzzy.
+
+---
+
+### 5. Oldest allocation (FIFO)
+
+Unallocate the resource allocated longest ago.
+
+**Best for:**
+
+* fairness
+* simple eviction rules
+
+**Trade-off:**
+Not always efficient — old ≠ unused.
+
+---
+
+### 6. Explicitly marked “evictable”
+
+Some allocations opt in to eviction.
+
+* Background jobs
+* Best-effort tasks
+* Non-critical consumers
+
+**Best for:**
+
+* modern systems with mixed criticality
+
+**Trade-off:**
+Requires clients to cooperate.
+
+---
+
+## A very important design rule
+
+> **The system should decide, not the requester.**
+
+If requesters can influence which resource gets freed, you’ll get:
+
+* priority inversion
+* starvation
+* gaming the system
+
+Keep eviction logic centralized.
+
+---
+
+## A clean decision framework
+
+When choosing a policy, ask:
+
+1. Is availability or throughput more important?
+2. Can allocations be interrupted safely?
+3. Do some users/tasks matter more than others?
+4. Is recovery cheap or expensive?
+5. Do we need predictability or adaptability?
+
+Your answers point almost directly to the right policy.
+
+---
+
+## Practical recommendation
+
+If you’re unsure, start with this progression:
+
+1. **Dedicated reserve** (simplest, safest)
+2. Add **priority-based eviction**
+3. Refine with **LRU or cost-based heuristics**
+
+Most production systems evolve exactly this way.
+
+---
+
+If you want, tell me:
+
+* what a “resource” actually is (threads, machines, licenses, people, etc.)
+* whether eviction is allowed
+* whether this is real-time or best-effort
+
+I can help you pick (or design) the exact policy and even sketch the Python logic.
+
